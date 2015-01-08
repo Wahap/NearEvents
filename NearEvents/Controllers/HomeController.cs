@@ -10,7 +10,7 @@ namespace NearEvents.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page2";
+            ViewBag.Title = "Home Page";
 
             return View();
         }
