@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyAroundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tAnnouncement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_map" Type="int" Nullable="false" />
+          <Property Name="id_person" Type="int" Nullable="false" />
+          <Property Name="id_category" Type="int" />
+          <Property Name="announce_info" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="time_start" Type="time" Precision="7" />
+          <Property Name="time_end" Type="time" Precision="7" />
+          <Property Name="image" Type="image" />
+          <Property Name="icon" Type="varchar" MaxLength="20" />
+          <Property Name="icon_size" Type="int" />
+          <Property Name="time_referans" Type="int" />
+          <Property Name="group" Type="int" />
+          <Property Name="is_right" Type="int" />
+        </EntityType>
+        <EntityType Name="tCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="count" Type="int" />
+        </EntityType>
+        <EntityType Name="tComment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_person" Type="int" Nullable="false" />
+          <Property Name="id_announcement" Type="int" Nullable="false" />
+          <Property Name="comment" Type="nvarchar" MaxLength="160" />
+          <Property Name="rate" Type="int" />
+          <Property Name="rate_count" Type="int" />
+          <Property Name="type" Type="int" />
+          <Property Name="inrange" Type="bit" />
+        </EntityType>
+        <EntityType Name="tMap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="latitute" Type="nvarchar" MaxLength="20" />
+          <Property Name="longitute" Type="nvarchar" MaxLength="20" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tPerson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="bio" Type="nvarchar" MaxLength="4000" />
+          <Property Name="image" Type="image" />
+          <Property Name="person_type" Type="int" />
+        </EntityType>
+        <Association Name="FK_tAnnouncement_tCategory">
+          <End Role="tCategory" Type="Self.tCategory" Multiplicity="0..1" />
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tCategory">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tAnnouncement">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tAnnouncement_tMap">
+          <End Role="tMap" Type="Self.tMap" Multiplicity="1" />
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMap">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tAnnouncement">
+              <PropertyRef Name="id_map" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tAnnouncement_tPerson">
+          <End Role="tPerson" Type="Self.tPerson" Multiplicity="1" />
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPerson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tAnnouncement">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tAnnouncement">
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="1" />
+          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tAnnouncement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="id_announcement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tPerson">
+          <End Role="tPerson" Type="Self.tPerson" Multiplicity="1" />
+          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPerson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyAroundModelStoreContainer">
+          <EntitySet Name="tAnnouncement" EntityType="Self.tAnnouncement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tCategory" EntityType="Self.tCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tMap" EntityType="Self.tMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tPerson" EntityType="Self.tPerson" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tAnnouncement_tCategory" Association="Self.FK_tAnnouncement_tCategory">
+            <End Role="tCategory" EntitySet="tCategory" />
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tAnnouncement_tMap" Association="Self.FK_tAnnouncement_tMap">
+            <End Role="tMap" EntitySet="tMap" />
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tAnnouncement_tPerson" Association="Self.FK_tAnnouncement_tPerson">
+            <End Role="tPerson" EntitySet="tPerson" />
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tAnnouncement" Association="Self.FK_tComment_tAnnouncement">
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tPerson" Association="Self.FK_tComment_tPerson">
+            <End Role="tPerson" EntitySet="tPerson" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyAroundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tAnnouncement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_map" Type="Int32" Nullable="false" />
+          <Property Name="id_person" Type="Int32" Nullable="false" />
+          <Property Name="id_category" Type="Int32" />
+          <Property Name="announce_info" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="time_start" Type="Time" Precision="7" />
+          <Property Name="time_end" Type="Time" Precision="7" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="icon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="icon_size" Type="Int32" />
+          <Property Name="time_referans" Type="Int32" />
+          <Property Name="group" Type="Int32" />
+          <Property Name="is_right" Type="Int32" />
+          <NavigationProperty Name="tCategory" Relationship="Self.FK_tAnnouncement_tCategory" FromRole="tAnnouncement" ToRole="tCategory" />
+          <NavigationProperty Name="tMap" Relationship="Self.FK_tAnnouncement_tMap" FromRole="tAnnouncement" ToRole="tMap" />
+          <NavigationProperty Name="tPerson" Relationship="Self.FK_tAnnouncement_tPerson" FromRole="tAnnouncement" ToRole="tPerson" />
+          <NavigationProperty Name="tComment" Relationship="Self.FK_tComment_tAnnouncement" FromRole="tAnnouncement" ToRole="tComment" />
+        </EntityType>
+        <EntityType Name="tCategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="count" Type="Int32" />
+          <NavigationProperty Name="tAnnouncement" Relationship="Self.FK_tAnnouncement_tCategory" FromRole="tCategory" ToRole="tAnnouncement" />
+        </EntityType>
+        <EntityType Name="tComment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_person" Type="Int32" Nullable="false" />
+          <Property Name="id_announcement" Type="Int32" Nullable="false" />
+          <Property Name="comment" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="rate" Type="Int32" />
+          <Property Name="rate_count" Type="Int32" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="inrange" Type="Boolean" />
+          <NavigationProperty Name="tAnnouncement" Relationship="Self.FK_tComment_tAnnouncement" FromRole="tComment" ToRole="tAnnouncement" />
+          <NavigationProperty Name="tPerson" Relationship="Self.FK_tComment_tPerson" FromRole="tComment" ToRole="tPerson" />
+        </EntityType>
+        <EntityType Name="tMap">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="latitute" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="longitute" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tAnnouncement" Relationship="Self.FK_tAnnouncement_tMap" FromRole="tMap" ToRole="tAnnouncement" />
+        </EntityType>
+        <EntityType Name="tPerson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="bio" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="person_type" Type="Int32" />
+          <NavigationProperty Name="tAnnouncement" Relationship="Self.FK_tAnnouncement_tPerson" FromRole="tPerson" ToRole="tAnnouncement" />
+          <NavigationProperty Name="tComment" Relationship="Self.FK_tComment_tPerson" FromRole="tPerson" ToRole="tComment" />
+        </EntityType>
+        <Association Name="FK_tAnnouncement_tCategory">
+          <End Role="tCategory" Type="Self.tCategory" Multiplicity="0..1" />
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tCategory">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tAnnouncement">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tAnnouncement_tMap">
+          <End Role="tMap" Type="Self.tMap" Multiplicity="1" />
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMap">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tAnnouncement">
+              <PropertyRef Name="id_map" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tAnnouncement_tPerson">
+          <End Role="tPerson" Type="Self.tPerson" Multiplicity="1" />
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPerson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tAnnouncement">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tAnnouncement">
+          <End Role="tAnnouncement" Type="Self.tAnnouncement" Multiplicity="1" />
+          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tAnnouncement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="id_announcement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tComment_tPerson">
+          <End Role="tPerson" Type="Self.tPerson" Multiplicity="1" />
+          <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tPerson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tComment">
+              <PropertyRef Name="id_person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyAroundEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tAnnouncement" EntityType="Self.tAnnouncement" />
+          <EntitySet Name="tCategory" EntityType="Self.tCategory" />
+          <EntitySet Name="tComment" EntityType="Self.tComment" />
+          <EntitySet Name="tMap" EntityType="Self.tMap" />
+          <EntitySet Name="tPerson" EntityType="Self.tPerson" />
+          <AssociationSet Name="FK_tAnnouncement_tCategory" Association="Self.FK_tAnnouncement_tCategory">
+            <End Role="tCategory" EntitySet="tCategory" />
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tAnnouncement_tMap" Association="Self.FK_tAnnouncement_tMap">
+            <End Role="tMap" EntitySet="tMap" />
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tAnnouncement_tPerson" Association="Self.FK_tAnnouncement_tPerson">
+            <End Role="tPerson" EntitySet="tPerson" />
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tAnnouncement" Association="Self.FK_tComment_tAnnouncement">
+            <End Role="tAnnouncement" EntitySet="tAnnouncement" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tComment_tPerson" Association="Self.FK_tComment_tPerson">
+            <End Role="tPerson" EntitySet="tPerson" />
+            <End Role="tComment" EntitySet="tComment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyAroundModelStoreContainer" CdmEntityContainer="MyAroundEntities">
+          <EntitySetMapping Name="tAnnouncement">
+            <EntityTypeMapping TypeName="MyAroundModel.tAnnouncement">
+              <MappingFragment StoreEntitySet="tAnnouncement">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_map" ColumnName="id_map" />
+                <ScalarProperty Name="id_person" ColumnName="id_person" />
+                <ScalarProperty Name="id_category" ColumnName="id_category" />
+                <ScalarProperty Name="announce_info" ColumnName="announce_info" />
+                <ScalarProperty Name="time_start" ColumnName="time_start" />
+                <ScalarProperty Name="time_end" ColumnName="time_end" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="icon_size" ColumnName="icon_size" />
+                <ScalarProperty Name="time_referans" ColumnName="time_referans" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="is_right" ColumnName="is_right" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tCategory">
+            <EntityTypeMapping TypeName="MyAroundModel.tCategory">
+              <MappingFragment StoreEntitySet="tCategory">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tComment">
+            <EntityTypeMapping TypeName="MyAroundModel.tComment">
+              <MappingFragment StoreEntitySet="tComment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_person" ColumnName="id_person" />
+                <ScalarProperty Name="id_announcement" ColumnName="id_announcement" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="rate_count" ColumnName="rate_count" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="inrange" ColumnName="inrange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tMap">
+            <EntityTypeMapping TypeName="MyAroundModel.tMap">
+              <MappingFragment StoreEntitySet="tMap">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="latitute" ColumnName="latitute" />
+                <ScalarProperty Name="longitute" ColumnName="longitute" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tPerson">
+            <EntityTypeMapping TypeName="MyAroundModel.tPerson">
+              <MappingFragment StoreEntitySet="tPerson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="bio" ColumnName="bio" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="person_type" ColumnName="person_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

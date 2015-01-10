@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -118,7 +119,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -160,6 +162,36 @@
     </Compile>
     <Compile Include="Models\DemoContext.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\NearModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NearModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NearModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NearModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NearModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NearModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tAnnouncement.cs">
+      <DependentUpon>NearModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tCategory.cs">
+      <DependentUpon>NearModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tComment.cs">
+      <DependentUpon>NearModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tMap.cs">
+      <DependentUpon>NearModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tPerson.cs">
+      <DependentUpon>NearModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +259,23 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <EntityDeploy Include="Models\NearModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NearModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NearModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NearModels.edmx</DependentUpon>
+      <LastGenOutput>NearModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NearModels.edmx.diagram">
+      <DependentUpon>NearModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\NearModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NearModels.edmx</DependentUpon>
+      <LastGenOutput>NearModels.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -993,8 +1042,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

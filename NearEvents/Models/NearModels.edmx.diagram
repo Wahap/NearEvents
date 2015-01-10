@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="269994173f8640e896cc7c84fc26ed38" Name="Diagram1">
+        <EntityTypeShape EntityType="MyAroundModel.tAnnouncement" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyAroundModel.tCategory" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyAroundModel.tComment" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyAroundModel.tMap" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyAroundModel.tPerson" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="MyAroundModel.FK_tAnnouncement_tCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="MyAroundModel.FK_tAnnouncement_tMap" ManuallyRouted="false" />
+        <AssociationConnector Association="MyAroundModel.FK_tAnnouncement_tPerson" ManuallyRouted="false" />
+        <AssociationConnector Association="MyAroundModel.FK_tComment_tAnnouncement" ManuallyRouted="false" />
+        <AssociationConnector Association="MyAroundModel.FK_tComment_tPerson" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
