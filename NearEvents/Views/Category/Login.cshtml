@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<div ng-controller="myCntrl2">
+
+    <span ng-click="AddEmployeeDiv()" class="btnGreen">
+        Add Employee
+    </span>
+
+    <div class="divList">
+        <p class="divHead">Employee List</p>
+        <table cellpadding="12">
+            <tr>
+                <td><b>ID</b></td>
+                <td><b>Name</b></td>
+                <td><b>Email</b></td>
+                <td><b>Age</b></td>
+                <td><b>Actions</b></td>
+            </tr>
+            <tr ng-repeat="employee in employees">
+                <td>
+                    {{employee.Id}}
+                </td>
+                <td>
+                    {{employee.Name}}
+                </td>
+                <td>
+                    {{employee.Email}}
+                </td>
+                <td>
+                    {{employee.Age}}
+                </td>
+                <td>
+                    <span ng-click="editEmployee(employee)" class="btnGreen">Edit</span>
+                    <span ng-click="deleteEmployee(employee)" class="btnRed">Delete</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div ng-show="divEmployee">
+        <p class="divHead">{{Action}} Employee</p>
+        <table>
+            <tr>
+                <td><b>Id</b></td>
+                <td>
+                    <input type="text" disabled="disabled" ng-model="employeeId" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>Name</b></td>
+                <td>
+                    <input type="text" ng-model="employeeName" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>Email</b></td>
+                <td>
+                    <input type="text" ng-model="employeeEmail" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>Age</b></td>
+                <td>
+                    <input type="text" ng-model="employeeAge" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" class="btnGreen" value="Save" ng-click="AddUpdateEmployee()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
