@@ -10,6 +10,8 @@ namespace NearEvents.Models
     public class DemoContext : DbContext
     {
         public DbSet<Employee> employee { get; set; }
+        public DbSet<Category> category { get; set; }
+       
     }
  
 }

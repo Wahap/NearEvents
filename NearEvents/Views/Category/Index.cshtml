@@ -1,40 +1,76 @@
-﻿@model IEnumerable<NearEvents.Models.tCategory>
+﻿
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <script src="~/Content/Services/categoryService.js"></script>
+<script src="~/Content/Controllers/categoryController.js"></script>
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.count)
-        </th>
-        <th></th>
-    </tr>
+<div ng-controller="categoryCont">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.count)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    <span ng-click="AddCategoryDiv()" class="btnGreen">
+        Add Employee
+    </span>
+   
+    <div class="divList">
+      
+        <table cellpadding="12">
+            <tr>
+                <td><b>ID</b></td>
+                <td><b>Name</b></td>
+              
+                <td><b>Count</b></td>
+                <td><b>Actions</b></td>
+            </tr>
+            <tr ng-repeat="category in categories">
+                <td>
+                    {{category.Id}}
+                </td>
+                <td>
+                    {{category.Name}}
+                </td>
+                <td>
+                    {{category.Count}}
+                </td>
+                <td>
+                    <span ng-click="editCategory(category)" class="btnGreen">Edit</span>
+                    <span ng-click="deleteCategory(category)" class="btnRed">Delete</span>
+                </td>
+               
+            </tr>
+        </table>
+    </div>
 
-</table>
+    <div ng-show="divCategory">
+        <p class="divHead">{{Action}} Category</p>
+        <table>
+            <tr>
+                <td><b>Id</b></td>
+                <td>
+                    <input type="text" disabled="disabled" ng-model="Id" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>Name</b></td>
+                <td>
+                    <input type="text" ng-model="Name" />
+                </td>
+            </tr>
+          
+            <tr>
+                <td><b>Count</b></td>
+                <td>
+                    <input type="text" ng-model="Count" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" class="btnGreen" value="Save" ng-click="AddUpdateCategory()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

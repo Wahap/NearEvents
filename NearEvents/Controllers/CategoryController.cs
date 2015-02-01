@@ -17,8 +17,98 @@ namespace NearEvents.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            return View(db.tCategory.ToList());
+            ViewBag.Title = "CAtegory Page";
+
+            return View();
         }
+        public JsonResult GetAll()
+        {
+            using (DemoContext contextObj = new DemoContext())
+            {
+                var categoryList = contextObj.category.ToList();
+                return Json(categoryList, JsonRequestBehavior.AllowGet);
+            }
+            //using (MyAroundEntities db = new MyAroundEntities())
+            //{
+            //    var categoryList = db.tCategory.ToList();
+            //    return Json(categoryList, JsonRequestBehavior.AllowGet);
+            //}
+        }
+
+        public string UpdateCategory(Category cat)
+        {
+            if (cat != null)
+            {
+                using (DemoContext contextObj = new DemoContext())
+                {
+                    int catId = Convert.ToInt32(cat.Id);
+                    Category category = contextObj.category.Where(a => a.Id == catId).FirstOrDefault();
+                    category.Name = cat.Name;
+
+                    category.Count = Convert.ToInt32( cat.Count);
+                    contextObj.SaveChanges();
+                    return "Employee Updated";
+                }
+            }
+            else
+            {
+                return "Invalid Record";
+            }
+        }
+
+        public string AddCategory(Category cat)
+        {
+            if (cat != null)
+            {
+                using (DemoContext contextObj = new DemoContext())
+                {
+                    contextObj.category.Add(cat);
+                    contextObj.SaveChanges();
+                    return "Employee Added";
+                }
+            }
+            else
+            {
+                return "Invalid Record";
+            }
+        }
+
+        public JsonResult GetCategoryById(string id)
+        {
+            using (DemoContext contextObj = new DemoContext())
+            {
+                int Id = Convert.ToInt32(id);
+                var getCategoryById = contextObj.category.Find(Id);
+                return Json(getCategoryById, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public string DeleteCategory(string categoryId)
+        {
+
+            if (!String.IsNullOrEmpty(categoryId))
+            {
+                try
+                {
+                    int Id = Int32.Parse(categoryId);
+                    using (DemoContext contextObj = new DemoContext())
+                    {
+                        var getCategory = contextObj.category.Find(Id);
+                        contextObj.category.Remove(getCategory);
+                        contextObj.SaveChanges();
+                        return "Employee Deleted";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "Employee Not Found " + ex;
+                }
+            }
+            else
+            {
+                return "Invalid Request";
+            }
+        }
+
 
         // GET: Category/Details/5
         public ActionResult Details(int? id)
