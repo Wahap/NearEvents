@@ -16,6 +16,11 @@ namespace NearEvents.Controllers
             return View();
         }
 
+        public ActionResult myIndex()
+        { 
+            return View(); 
+        }
+
 
         public JsonResult GetAll()
         {
@@ -100,7 +105,7 @@ namespace NearEvents.Controllers
                 return "Invalid Request";
             }
         }
- 
+
 
     }
 }
